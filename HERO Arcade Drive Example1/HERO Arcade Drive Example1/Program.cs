@@ -30,6 +30,7 @@ namespace HERO_Arcade_Drive_Example1
 
         static bool isPressed = false;
         static bool lightsIsPressed = false;
+        static bool blinkLightsIsPressed = false;
         static bool lightsOn = false;
         static bool needToRun = false;
         static int counter = 0;
@@ -41,6 +42,7 @@ namespace HERO_Arcade_Drive_Example1
 
             isPressed = false;
             lightsIsPressed = false;
+            blinkLightsIsPressed = false;
             lightsOn = true;
 
             right.SetNeutralMode(NeutralMode.Brake);
@@ -58,7 +60,7 @@ namespace HERO_Arcade_Drive_Example1
 
                 Drive();
                 ShootButton(8);
-                Lights(2);
+                ToggleLights(2);
 
                 /* feed watchdog to keep Talon's enabled */
                 CTRE.Phoenix.Watchdog.Feed();
@@ -71,8 +73,12 @@ namespace HERO_Arcade_Drive_Example1
          * If value is within 10% of center, clear it.
          * @param value [out] floating point value to deadband.
          */
+        
+        static void BlinkLights(uint id)
+        {
+            if(_gamepard.GetButton(id))    
 
-        static void Lights(uint id)
+        static void ToggleLights(uint id)
         {
             if(_gamepad.GetButton(id) && !lightsIsPressed)
             {
