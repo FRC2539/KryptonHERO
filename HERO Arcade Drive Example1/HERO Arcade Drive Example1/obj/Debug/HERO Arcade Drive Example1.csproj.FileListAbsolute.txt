@@ -1,0 +1,19 @@
+C:\Users\Clyde\source\repos\HERO Arcade Drive Example1\HERO Arcade Drive Example1\bin\Debug\le\HERO Arcade Drive Example1.exe
+C:\Users\Clyde\source\repos\HERO Arcade Drive Example1\HERO Arcade Drive Example1\bin\Debug\be\HERO Arcade Drive Example1.exe
+C:\Users\Clyde\source\repos\HERO Arcade Drive Example1\HERO Arcade Drive Example1\bin\Debug\le\HERO Arcade Drive Example1.pdb
+C:\Users\Clyde\source\repos\HERO Arcade Drive Example1\HERO Arcade Drive Example1\bin\Debug\be\HERO Arcade Drive Example1.pdb
+C:\Users\Clyde\source\repos\HERO Arcade Drive Example1\HERO Arcade Drive Example1\bin\Debug\HERO Arcade Drive Example1.exe
+C:\Users\Clyde\source\repos\HERO Arcade Drive Example1\HERO Arcade Drive Example1\bin\Debug\HERO Arcade Drive Example1.pdb
+C:\Users\Clyde\source\repos\HERO Arcade Drive Example1\HERO Arcade Drive Example1\bin\Debug\le\HERO Arcade Drive Example1.pe
+C:\Users\Clyde\source\repos\HERO Arcade Drive Example1\HERO Arcade Drive Example1\bin\Debug\le\HERO Arcade Drive Example1.pdbx
+C:\Users\Clyde\source\repos\HERO Arcade Drive Example1\HERO Arcade Drive Example1\bin\Debug\be\HERO Arcade Drive Example1.pe
+C:\Users\Clyde\source\repos\HERO Arcade Drive Example1\HERO Arcade Drive Example1\bin\Debug\be\HERO Arcade Drive Example1.pdbx
+C:\Users\Clyde\source\repos\HERO Arcade Drive Example1\HERO Arcade Drive Example1\obj\Debug\HERO Arcade Drive Example1.csprojAssemblyReference.cache
+C:\Users\Clyde\source\repos\HERO Arcade Drive Example1\HERO Arcade Drive Example1\obj\Debug\TinyCLR_DebugReferences.cache
+C:\Users\Clyde\source\repos\HERO Arcade Drive Example1\HERO Arcade Drive Example1\obj\Debug\HERO Arcade Drive Example1.csproj.CoreCompileInputs.cache
+C:\Users\Clyde\source\repos\HERO Arcade Drive Example1\HERO Arcade Drive Example1\obj\Debug\HERO Arcade Drive Example1.exe
+C:\Users\Clyde\source\repos\HERO Arcade Drive Example1\HERO Arcade Drive Example1\obj\Debug\HERO Arcade Drive Example1.pdb
+C:\Users\Clyde\source\repos\HERO Arcade Drive Example1\HERO Arcade Drive Example1\obj\Debug\be\HERO Arcade Drive Example1.pe
+C:\Users\Clyde\source\repos\HERO Arcade Drive Example1\HERO Arcade Drive Example1\obj\Debug\be\HERO Arcade Drive Example1.pdbx
+C:\Users\Clyde\source\repos\HERO Arcade Drive Example1\HERO Arcade Drive Example1\obj\Debug\le\HERO Arcade Drive Example1.pe
+C:\Users\Clyde\source\repos\HERO Arcade Drive Example1\HERO Arcade Drive Example1\obj\Debug\le\HERO Arcade Drive Example1.pdbx
