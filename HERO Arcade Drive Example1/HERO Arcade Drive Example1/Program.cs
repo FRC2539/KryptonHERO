@@ -13,6 +13,49 @@ using System.Threading;
 namespace HERO_Arcade_Drive_Example1
 {
 
+    public class Button {
+
+        static CTRE.Phoenix.Controller.GameController controller = null;
+        int buttonID;
+        private bool buttonPressed = false;
+        private bool ran = false;
+        dummy toDo = null;
+        dummy onStop = null;
+
+        public delegate void dummy(); 
+        public static Button(uint id, dummy execute, dummy end) { // to assign to button, cannot take or return values.
+            buttonID = id;
+            toDo = execute;
+            onStop = end;
+
+            if(controller == null) { controller = new GameController(UsbHostDevice.GetInstance()); } // Create controller.
+
+        }
+
+        public bool rawIsPressed() { return controller.GetButton(buttonID); } // Sends whatever controller reads.
+
+        public bool isPressed() { // Sends one true signal upon push then returns false. 
+            if(!rawIsPressed() || buttonPressed) { buttonPressed = false; return false; } 
+            else { buttonPressed = true; return true;}
+        }
+
+        public void toggleWhenPressed() { // Although this method uses 'ran' it really should be 'run'.
+            if(isPressed() && ran) { onStop(); ran = false; } // Ends upon second toggle. 
+            else if(isPressed() && !ran) { toDo(); ran = true; } // Starts upon first toggle.
+            else if(ran) { toDo(); } // This part loops.
+        }
+
+        public void whileHeld() { // Use rawIsPressed to always watch its true value.
+            if(rawIsPressed()) { toDo(); ran = true; } // Repeate this while it's being held.
+            else if(ran) { onStop(); ran = false; } // Assuming we were running and the button is no longer being touched, do this once at the end.
+        }
+
+        public void whenPressed() { // Used isPressed to prevent something from happening multiple times.
+            if(isPressed()) { toDo(); onStop(); } 
+        }
+
+    }
+
     public class Program
     {
         /* create a talon */
@@ -194,4 +237,5 @@ namespace HERO_Arcade_Drive_Example1
 
         }
     }
+}
 }
