@@ -58,16 +58,17 @@ namespace HERO_Arcade_Drive_Example1
 
     public class Program
     {
-        /* create a talon */
-        static TalonSRX rightSlave = new TalonSRX(4);
-        static TalonSRX right = new TalonSRX(3);
-        static TalonSRX leftSlave = new TalonSRX(2);
-        static TalonSRX left = new TalonSRX(1);
+        // Create the drive train motors
+        static TalonSRX right = new TalonSRX(4);
+        static TalonSRX left = new TalonSRX(9);
 
-        static VictorSPX elevationMotor = new VictorSPX(5);
+        static TalonSRX elevationMotor = new TalonSRX(11);
+        
+        // Create the index motors (moving balls to the shooter)
+        static TalonSRX index1 = new TalonSRX(3);
+        static TalonSRX index2 = new TalonSRX(7);
 
-        static OutputPort shootSpike = new OutputPort(CTRE.HERO.IO.Port3.Pin9, true); // Pin 9
-        static OutputPort lightsSpike = new OutputPort(CTRE.HERO.IO.Port3.Pin8, true); // Pin 8
+        static TalonSRX shooter = new TalonSRX(8);
 
         static GameControllerValues v = new GameControllerValues();
 
@@ -88,26 +89,25 @@ namespace HERO_Arcade_Drive_Example1
             blinkLightsIsPressed = false;
             lightsOn = true;
 
+            // Configure the drivetrain motors
             right.SetNeutralMode(NeutralMode.Brake);
-            rightSlave.SetNeutralMode(NeutralMode.Brake);
             left.SetNeutralMode(NeutralMode.Brake);
-            leftSlave.SetNeutralMode(NeutralMode.Brake);
 
             elevationMotor.SetNeutralMode(NeutralMode.Brake);
             elevationMotor.ConfigOpenloopRamp(0.25f);
 
-            /* loop forever */
+            // Run the robot loop
             while (true)
             {
-                /* drive robot using gamepad */
-
+                // Drive the robot with the gamepad
                 Drive();
                 ShootButton(8);
-                ToggleLights(2);
+                //ToggleLights(2);
 
-                /* feed watchdog to keep Talon's enabled */
+                // Feed watchdog to keep the Talons enabled
                 CTRE.Phoenix.Watchdog.Feed();
-                /* run this task every 20ms */
+
+                // Set the loop speed to be every 20 ms
                 Thread.Sleep(20);
 
             }
@@ -116,17 +116,18 @@ namespace HERO_Arcade_Drive_Example1
          * If value is within 10% of center, clear it.
          * @param value [out] floating point value to deadband.
          */
-        
+
         static void BlinkLights(uint id)
         {
-            if(_gamepard.GetButton(id))    
+            if (_gamepard.GetButton(id))
+        }
 
         static void ToggleLights(uint id)
         {
             if(_gamepad.GetButton(id) && !lightsIsPressed)
             {
                 lightsOn = !lightsOn;
-                lightsSpike.Write(lightsOn);
+                //lightsSpike.Write(lightsOn);
                 lightsIsPressed = true;
             }
 
@@ -169,11 +170,11 @@ namespace HERO_Arcade_Drive_Example1
         }
 
         static void startShooting() {
-            shootSpike.Write(false);
+            shooter.Set(ControlMode.PercentOutput, 0.5);
         }
 
         static void stopShooting() {
-            shootSpike.Write(true);
+            shooter.Set(ControlMode.PercentOutput, 0);
         }
 
         static void Deadband(ref float value)
@@ -192,6 +193,7 @@ namespace HERO_Arcade_Drive_Example1
                 value = 0;
             }
         }
+
         static void Drive()
         {
             if (null == _gamepad)
@@ -207,9 +209,7 @@ namespace HERO_Arcade_Drive_Example1
             float rightThrot = (y - twist) * 1.15f; // Multiply to match left side.
 
             left.Set(ControlMode.PercentOutput, leftThrot);
-            leftSlave.Set(ControlMode.PercentOutput, leftThrot);
             right.Set(ControlMode.PercentOutput, -rightThrot);
-            rightSlave.Set(ControlMode.PercentOutput, -rightThrot);
 
             _gamepad.GetAllValues(ref v).ToString();
 
@@ -237,5 +237,4 @@ namespace HERO_Arcade_Drive_Example1
 
         }
     }
-}
 }
