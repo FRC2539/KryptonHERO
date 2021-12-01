@@ -16,14 +16,14 @@ namespace HERO_Arcade_Drive_Example1
     public class Button {
 
         static CTRE.Phoenix.Controller.GameController controller = null;
-        int buttonID;
+        uint buttonID;
         private bool buttonPressed = false;
         private bool ran = false;
         dummy toDo = null;
         dummy onStop = null;
 
         public delegate void dummy(); 
-        public static Button(uint id, dummy execute, dummy end) { // to assign to button, cannot take or return values.
+        public Button(uint id, dummy execute, dummy end) { // to assign to button, cannot take or return values.
             buttonID = id;
             toDo = execute;
             onStop = end;
@@ -102,6 +102,9 @@ namespace HERO_Arcade_Drive_Example1
                 // Drive the robot with the gamepad
                 Drive();
                 ShootButton(8);
+                ElevatorUpButton(5);
+                ElevatorDownButton(7);
+                IndexButton(6);
                 //ToggleLights(2);
 
                 // Feed watchdog to keep the Talons enabled
@@ -119,7 +122,7 @@ namespace HERO_Arcade_Drive_Example1
 
         static void BlinkLights(uint id)
         {
-            if (_gamepard.GetButton(id))
+            //if (_gamepard.GetButton(id))
         }
 
         static void ToggleLights(uint id)
@@ -141,27 +144,70 @@ namespace HERO_Arcade_Drive_Example1
 
         static void ShootButton(uint id)
         {
-            if((_gamepad.GetButton(id)) && (!isPressed))
+            if(_gamepad.GetButton(id))
             {
                 // Begin shooting.
                 startShooting();
-                isPressed = true;
-                needToRun = true;
+                //startIndexing();
+                //isPressed = true;
+                //needToRun = true;
             }
 
-            else if(!_gamepad.GetButton(id))
+            else
             {
-                isPressed = false;
+                //isPressed = false;
+
+                stopShooting();
+                //stopIndexing();
             }
 
         }
 
-        static void raiseBarrel()
+        static void IndexButton(uint id)
+        {
+            if (_gamepad.GetButton(id))
+            {
+                startIndexing();
+            }
+            else
+            {
+                stopIndexing();
+            }
+
+        }
+
+        static void ElevatorUpButton(uint id)
+        {
+            if (_gamepad.GetButton(id))
+            {
+                raiseElevator();
+            }
+            else
+            {
+                stopElevationMotor();
+            }
+
+        }
+
+        static void ElevatorDownButton(uint id)
+        {
+            if (_gamepad.GetButton(id))
+            {
+                lowerElevator();
+            }
+            else
+            {
+                stopElevationMotor();
+            }
+
+        }
+
+        static void raiseElevator()
         {
             elevationMotor.Set(ControlMode.PercentOutput, 0.3);
         }
 
-        static void lowerBarrel() {
+        static void lowerElevator() {
             elevationMotor.Set(ControlMode.PercentOutput, -0.2);
         }
 
@@ -170,11 +216,23 @@ namespace HERO_Arcade_Drive_Example1
         }
 
         static void startShooting() {
-            shooter.Set(ControlMode.PercentOutput, 0.5);
+            shooter.Set(ControlMode.PercentOutput, .4);
         }
 
         static void stopShooting() {
             shooter.Set(ControlMode.PercentOutput, 0);
+        }
+
+        static void startIndexing()
+        {
+            index1.Set(ControlMode.PercentOutput, -0.5);
+            index2.Set(ControlMode.PercentOutput, .5);
+        }
+
+        static void stopIndexing()
+        {
+            index1.Set(ControlMode.PercentOutput, 0);
+            index2.Set(ControlMode.PercentOutput, 0);
         }
 
         static void Deadband(ref float value)
@@ -213,27 +271,27 @@ namespace HERO_Arcade_Drive_Example1
 
             _gamepad.GetAllValues(ref v).ToString();
 
-            if(v.pov == 0 && (_gamepad.GetConnectionStatus() == CTRE.Phoenix.UsbDeviceConnection.Connected)) { // Raise 
-                raiseBarrel(); // Make sure its connected because lowers by default.
-            }
+            //if(v.pov == 0 && (_gamepad.GetConnectionStatus() == CTRE.Phoenix.UsbDeviceConnection.Connected)) { // Raise 
+                //raiseBarrel(); // Make sure its connected because lowers by default.
+            //}
 
-            else if(v.pov == 4) { // Lower
-                lowerBarrel();
-            }
+            //else if(v.pov == 4) { // Lower
+              //  lowerBarrel();
+            //}
 
-            else { stopElevationMotor(); }
+            //else { stopElevationMotor(); }
 
-            if(needToRun)
-            {
-                counter++;
+            //if(needToRun)
+            //{
+              //  counter++;
                 
-                if(counter == 10)
-                {
-                    stopShooting();
-                    counter = 0;
-                    needToRun = false;
-                }
-            }
+                //if(counter == 10)
+                //{
+                  //  stopShooting();
+                    //counter = 0;
+                    //needToRun = false;
+                //}
+            //}
 
         }
     }
