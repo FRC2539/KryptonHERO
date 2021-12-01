@@ -9,12 +9,9 @@ using System;
 using System.Text;
 using System.Threading;
 
-
-namespace HERO_Arcade_Drive_Example1
-{
+namespace HERO_Arcade_Drive_Example1{
 
     public class Button {
-
         static CTRE.Phoenix.Controller.GameController controller = null;
         int buttonID;
         private bool buttonPressed = false;
@@ -28,36 +25,62 @@ namespace HERO_Arcade_Drive_Example1
             toDo = execute;
             onStop = end;
 
-            if(controller == null) { controller = new GameController(UsbHostDevice.GetInstance()); } // Create controller.
-
+            if(controller == null) {
+		// Create controller.
+		controller = new GameController(UsbHostDevice.GetInstance());
+	    }
         }
 
-        public bool rawIsPressed() { return controller.GetButton(buttonID); } // Sends whatever controller reads.
+        public bool rawIsPressed() {
+		// Sends whatever controller reads.
+		return controller.GetButton(buttonID); 
+	} 
 
-        public bool isPressed() { // Sends one true signal upon push then returns false. 
-            if(!rawIsPressed() || buttonPressed) { buttonPressed = false; return false; } 
-            else { buttonPressed = true; return true;}
+        public bool isPressed() { 
+		// Sends one true signal upon push then returns false. 
+            if(!rawIsPressed() || buttonPressed) { 
+		    buttonPressed = false; return false; 
+	    } else { 
+		    buttonPressed = true; return true;
+	    }
         }
 
         public void toggleWhenPressed() { // Although this method uses 'ran' it really should be 'run'.
-            if(isPressed() && ran) { onStop(); ran = false; } // Ends upon second toggle. 
-            else if(isPressed() && !ran) { toDo(); ran = true; } // Starts upon first toggle.
-            else if(ran) { toDo(); } // This part loops.
-        }
+            if(isPressed() && ran) { 
+		// Ends upon second toggle. 
+		    onStop(); ran = false; 
+	    } else if(isPressed() && !ran) { 
+		// Starts upon first toggle.
+		    toDo(); ran = true; 
+	    } else if(ran) { 
+		// This part loops.
+		    toDo(); 
+	    } 
+	}
 
-        public void whileHeld() { // Use rawIsPressed to always watch its true value.
-            if(rawIsPressed()) { toDo(); ran = true; } // Repeate this while it's being held.
-            else if(ran) { onStop(); ran = false; } // Assuming we were running and the button is no longer being touched, do this once at the end.
-        }
+        public void whileHeld() { 
+		// Use rawIsPressed to always watch its true value.
+            if(rawIsPressed()) {
+		// Repeate this while it's being held.
+		    toDo(); 
+		    ran = true; 
+	    } else if(ran) {
+		// Assuming we were running and the button is no longer being touched, do this once at the end.
+		    onStop(); 
+		    ran = false; 
+	    }
+	}
 
-        public void whenPressed() { // Used isPressed to prevent something from happening multiple times.
-            if(isPressed()) { toDo(); onStop(); } 
+        public void whenPressed() { 
+		// Used isPressed to prevent something from happening multiple times.
+            if(isPressed()){ 
+		    toDo(); 
+		    onStop(); 
+	    } 
         }
-
     }
 
-    public class Program
-    {
+    public class Program {
         // Create the drive train motors
         static TalonSRX right = new TalonSRX(4);
         static TalonSRX left = new TalonSRX(9);
@@ -81,8 +104,7 @@ namespace HERO_Arcade_Drive_Example1
 
         static CTRE.Phoenix.Controller.GameController _gamepad = null;
 
-        public static void Main()
-        {
+        public static void Main(){
 
             isPressed = false;
             lightsIsPressed = false;
@@ -97,8 +119,7 @@ namespace HERO_Arcade_Drive_Example1
             elevationMotor.ConfigOpenloopRamp(0.25f);
 
             // Run the robot loop
-            while (true)
-            {
+            while (true){
                 // Drive the robot with the gamepad
                 Drive();
                 ShootButton(8);
@@ -117,47 +138,34 @@ namespace HERO_Arcade_Drive_Example1
          * @param value [out] floating point value to deadband.
          */
 
-        static void BlinkLights(uint id)
-        {
+        static void BlinkLights(uint id){
             if (_gamepard.GetButton(id))
         }
 
-        static void ToggleLights(uint id)
-        {
-            if(_gamepad.GetButton(id) && !lightsIsPressed)
-            {
+        static void ToggleLights(uint id){
+            if(_gamepad.GetButton(id) && !lightsIsPressed){
                 lightsOn = !lightsOn;
                 //lightsSpike.Write(lightsOn);
                 lightsIsPressed = true;
             }
 
-            else if(!_gamepad.GetButton(id))
-            {
+            else if(!_gamepad.GetButton(id)){
                 lightsIsPressed = false;
             }
+	}
 
-
-        }
-
-        static void ShootButton(uint id)
-        {
-            if((_gamepad.GetButton(id)) && (!isPressed))
-            {
+        static void ShootButton(uint id){
+            if((_gamepad.GetButton(id)) && (!isPressed)){
                 // Begin shooting.
                 startShooting();
                 isPressed = true;
                 needToRun = true;
-            }
-
-            else if(!_gamepad.GetButton(id))
-            {
+            } else if(!_gamepad.GetButton(id)){
                 isPressed = false;
             }
-
         }
 
-        static void raiseBarrel()
-        {
+        static void raiseBarrel() {
             elevationMotor.Set(ControlMode.PercentOutput, 0.3);
         }
 
@@ -177,25 +185,20 @@ namespace HERO_Arcade_Drive_Example1
             shooter.Set(ControlMode.PercentOutput, 0);
         }
 
-        static void Deadband(ref float value)
-        {
-            if (value < -0.05)
-            {
+        static void Deadband(ref float value){
+            if (value < -0.05){
                 /* outside of deadband */
             }
-            else if (value > +0.05)
-            {
+            else if (value > +0.05){
                 /* outside of deadband */
             }
-            else
-            {
+            else {
                 /* within 10% so zero it */
                 value = 0;
             }
         }
 
-        static void Drive()
-        {
+        static void Drive(){
             if (null == _gamepad)
                 _gamepad = new GameController(UsbHostDevice.GetInstance());
 
@@ -213,28 +216,25 @@ namespace HERO_Arcade_Drive_Example1
 
             _gamepad.GetAllValues(ref v).ToString();
 
-            if(v.pov == 0 && (_gamepad.GetConnectionStatus() == CTRE.Phoenix.UsbDeviceConnection.Connected)) { // Raise 
+            if(v.pov == 0 && (_gamepad.GetConnectionStatus() == CTRE.Phoenix.UsbDeviceConnection.Connected)) { 
+		// Raise 
                 raiseBarrel(); // Make sure its connected because lowers by default.
-            }
-
-            else if(v.pov == 4) { // Lower
+            } else if(v.pov == 4) {
+		// Lower
                 lowerBarrel();
-            }
+            } else { 
+		stopElevationMotor(); 
+	    }
 
-            else { stopElevationMotor(); }
-
-            if(needToRun)
-            {
+            if(needToRun){
                 counter++;
                 
-                if(counter == 10)
-                {
+                if(counter == 10){
                     stopShooting();
                     counter = 0;
                     needToRun = false;
                 }
             }
-
         }
     }
 }
