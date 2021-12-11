@@ -78,6 +78,9 @@ namespace HERO_Arcade_Drive_Example1
         static bool lightsOn = false;
         static bool needToRun = false;
         static int counter = 0;
+        static int motorDirection = 0;
+
+        static bool buttonPressed = false;
 
         static CTRE.Phoenix.Controller.GameController _gamepad = null;
 
@@ -100,8 +103,9 @@ namespace HERO_Arcade_Drive_Example1
             while (true)
             {
                 // Drive the robot with the gamepad
-                OneMotor();
-       
+                OneMotorForward(1);
+                OneMotorBackward(2);
+
                 // Feed watchdog to keep the Talons enabled
                 CTRE.Phoenix.Watchdog.Feed();
                 CTRE.Phoenix.Watchdog.Feed();
@@ -291,7 +295,7 @@ namespace HERO_Arcade_Drive_Example1
 
         }
 
-        static void OneMotor()
+      /*  static void OneMotor()
         {
             if (null == _gamepad)
                 _gamepad = new GameController(UsbHostDevice.GetInstance());
@@ -301,6 +305,45 @@ namespace HERO_Arcade_Drive_Example1
             right.Set(ControlMode.PercentOutput, y);
 
             _gamepad.GetAllValues(ref v).ToString();
+        }*/
+
+        static void OneMotorForward(uint id)
+        {
+            if (null == _gamepad)
+                _gamepad = new GameController(UsbHostDevice.GetInstance());
+            //Debug.Print(_gamepad.GetButton(id).ToString());
+
+            if (_gamepad.GetButton(id))
+            {
+                motorDirection = 1;
+                right.Set(ControlMode.PercentOutput, 1);
+                Debug.Print("pressed");
+            }
+            else if (motorDirection == 1)
+            {
+                right.Set(ControlMode.PercentOutput, 0);
+                Debug.Print("released forward");
+            }
+        }
+
+        static void OneMotorBackward(uint id)
+        {
+            if (null == _gamepad)
+                _gamepad = new GameController(UsbHostDevice.GetInstance());
+            //Debug.Print(_gamepad.GetButton(id).ToString());
+
+            if (_gamepad.GetButton(id))
+            {
+                motorDirection = -1;
+                right.Set(ControlMode.PercentOutput, -1);
+                Debug.Print("pressed");
+            }
+            else if(motorDirection == -1)
+            {
+                right.Set(ControlMode.PercentOutput, 0);
+                Debug.Print("released backward");
+            }
         }
     }
 }
+
