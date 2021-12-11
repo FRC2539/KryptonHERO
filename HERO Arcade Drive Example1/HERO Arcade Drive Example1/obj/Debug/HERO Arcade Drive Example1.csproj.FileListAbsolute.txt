@@ -36,3 +36,22 @@ C:\Users\Clyde\Source\Repos\KryptonHERO\HERO Arcade Drive Example1\HERO Arcade D
 C:\Users\Clyde\Source\Repos\KryptonHERO\HERO Arcade Drive Example1\HERO Arcade Drive Example1\obj\Debug\be\HERO Arcade Drive Example1.pdbx
 C:\Users\Clyde\Source\Repos\KryptonHERO\HERO Arcade Drive Example1\HERO Arcade Drive Example1\obj\Debug\le\HERO Arcade Drive Example1.pe
 C:\Users\Clyde\Source\Repos\KryptonHERO\HERO Arcade Drive Example1\HERO Arcade Drive Example1\obj\Debug\le\HERO Arcade Drive Example1.pdbx
+C:\Users\Krypton Cougars\source\repos\KryptonHERO\HERO Arcade Drive Example1\HERO Arcade Drive Example1\bin\Debug\le\HERO Arcade Drive Example1.exe
+C:\Users\Krypton Cougars\source\repos\KryptonHERO\HERO Arcade Drive Example1\HERO Arcade Drive Example1\bin\Debug\be\HERO Arcade Drive Example1.exe
+C:\Users\Krypton Cougars\source\repos\KryptonHERO\HERO Arcade Drive Example1\HERO Arcade Drive Example1\bin\Debug\le\HERO Arcade Drive Example1.pdb
+C:\Users\Krypton Cougars\source\repos\KryptonHERO\HERO Arcade Drive Example1\HERO Arcade Drive Example1\bin\Debug\be\HERO Arcade Drive Example1.pdb
+C:\Users\Krypton Cougars\source\repos\KryptonHERO\HERO Arcade Drive Example1\HERO Arcade Drive Example1\bin\Debug\HERO Arcade Drive Example1.exe
+C:\Users\Krypton Cougars\source\repos\KryptonHERO\HERO Arcade Drive Example1\HERO Arcade Drive Example1\bin\Debug\HERO Arcade Drive Example1.pdb
+C:\Users\Krypton Cougars\source\repos\KryptonHERO\HERO Arcade Drive Example1\HERO Arcade Drive Example1\bin\Debug\le\HERO Arcade Drive Example1.pe
+C:\Users\Krypton Cougars\source\repos\KryptonHERO\HERO Arcade Drive Example1\HERO Arcade Drive Example1\bin\Debug\le\HERO Arcade Drive Example1.pdbx
+C:\Users\Krypton Cougars\source\repos\KryptonHERO\HERO Arcade Drive Example1\HERO Arcade Drive Example1\bin\Debug\be\HERO Arcade Drive Example1.pe
+C:\Users\Krypton Cougars\source\repos\KryptonHERO\HERO Arcade Drive Example1\HERO Arcade Drive Example1\bin\Debug\be\HERO Arcade Drive Example1.pdbx
+C:\Users\Krypton Cougars\source\repos\KryptonHERO\HERO Arcade Drive Example1\HERO Arcade Drive Example1\obj\Debug\HERO Arcade Drive Example1.csproj.AssemblyReference.cache
+C:\Users\Krypton Cougars\source\repos\KryptonHERO\HERO Arcade Drive Example1\HERO Arcade Drive Example1\obj\Debug\TinyCLR_DebugReferences.cache
+C:\Users\Krypton Cougars\source\repos\KryptonHERO\HERO Arcade Drive Example1\HERO Arcade Drive Example1\obj\Debug\HERO Arcade Drive Example1.csproj.CoreCompileInputs.cache
+C:\Users\Krypton Cougars\source\repos\KryptonHERO\HERO Arcade Drive Example1\HERO Arcade Drive Example1\obj\Debug\be\HERO Arcade Drive Example1.pe
+C:\Users\Krypton Cougars\source\repos\KryptonHERO\HERO Arcade Drive Example1\HERO Arcade Drive Example1\obj\Debug\be\HERO Arcade Drive Example1.pdbx
+C:\Users\Krypton Cougars\source\repos\KryptonHERO\HERO Arcade Drive Example1\HERO Arcade Drive Example1\obj\Debug\le\HERO Arcade Drive Example1.pe
+C:\Users\Krypton Cougars\source\repos\KryptonHERO\HERO Arcade Drive Example1\HERO Arcade Drive Example1\obj\Debug\le\HERO Arcade Drive Example1.pdbx
+C:\Users\Krypton Cougars\source\repos\KryptonHERO\HERO Arcade Drive Example1\HERO Arcade Drive Example1\obj\Debug\HERO Arcade Drive Example1.exe
+C:\Users\Krypton Cougars\source\repos\KryptonHERO\HERO Arcade Drive Example1\HERO Arcade Drive Example1\obj\Debug\HERO Arcade Drive Example1.pdb

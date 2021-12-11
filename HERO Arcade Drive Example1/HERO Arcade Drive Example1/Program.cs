@@ -59,16 +59,16 @@ namespace HERO_Arcade_Drive_Example1
     public class Program
     {
         // Create the drive train motors
-        static TalonSRX right = new TalonSRX(4);
-        static TalonSRX left = new TalonSRX(9);
+        static TalonSRX right = new TalonSRX(1);
+        //static TalonSRX left = new TalonSRX(9);
 
-        static TalonSRX elevationMotor = new TalonSRX(11);
+        //static TalonSRX elevationMotor = new TalonSRX(11);
         
         // Create the index motors (moving balls to the shooter)
-        static TalonSRX index1 = new TalonSRX(3);
-        static TalonSRX index2 = new TalonSRX(7);
+       // static TalonSRX index1 = new TalonSRX(3);
+        //static TalonSRX index2 = new TalonSRX(7);
 
-        static TalonSRX shooter = new TalonSRX(8);
+        //static TalonSRX shooter = new TalonSRX(8);
 
         static GameControllerValues v = new GameControllerValues();
 
@@ -91,23 +91,19 @@ namespace HERO_Arcade_Drive_Example1
 
             // Configure the drivetrain motors
             right.SetNeutralMode(NeutralMode.Brake);
-            left.SetNeutralMode(NeutralMode.Brake);
+            //left.SetNeutralMode(NeutralMode.Brake);
 
-            elevationMotor.SetNeutralMode(NeutralMode.Brake);
-            elevationMotor.ConfigOpenloopRamp(0.25f);
+            //elevationMotor.SetNeutralMode(NeutralMode.Brake);
+            //elevationMotor.ConfigOpenloopRamp(0.25f);
 
             // Run the robot loop
             while (true)
             {
                 // Drive the robot with the gamepad
-                Drive();
-                ShootButton(8);
-                ElevatorUpButton(5);
-                ElevatorDownButton(7);
-                IndexButton(6);
-                //ToggleLights(2);
-
+                OneMotor();
+       
                 // Feed watchdog to keep the Talons enabled
+                CTRE.Phoenix.Watchdog.Feed();
                 CTRE.Phoenix.Watchdog.Feed();
 
                 // Set the loop speed to be every 20 ms
@@ -204,35 +200,35 @@ namespace HERO_Arcade_Drive_Example1
 
         static void raiseElevator()
         {
-            elevationMotor.Set(ControlMode.PercentOutput, 0.3);
+            //elevationMotor.Set(ControlMode.PercentOutput, 0.3);
         }
 
         static void lowerElevator() {
-            elevationMotor.Set(ControlMode.PercentOutput, -0.2);
+            //elevationMotor.Set(ControlMode.PercentOutput, -0.2);
         }
 
         static void stopElevationMotor() {
-            elevationMotor.Set(ControlMode.PercentOutput, 0);
+            //elevationMotor.Set(ControlMode.PercentOutput, 0);
         }
 
         static void startShooting() {
-            shooter.Set(ControlMode.PercentOutput, .4);
+            //shooter.Set(ControlMode.PercentOutput, .4);
         }
 
         static void stopShooting() {
-            shooter.Set(ControlMode.PercentOutput, 0);
+           // shooter.Set(ControlMode.PercentOutput, 0);
         }
 
         static void startIndexing()
         {
-            index1.Set(ControlMode.PercentOutput, -0.5);
-            index2.Set(ControlMode.PercentOutput, .5);
+            //index1.Set(ControlMode.PercentOutput, -0.5);
+            //index2.Set(ControlMode.PercentOutput, .5);
         }
 
         static void stopIndexing()
         {
-            index1.Set(ControlMode.PercentOutput, 0);
-            index2.Set(ControlMode.PercentOutput, 0);
+            //index1.Set(ControlMode.PercentOutput, 0);
+            //index2.Set(ControlMode.PercentOutput, 0);
         }
 
         static void Deadband(ref float value)
@@ -266,7 +262,7 @@ namespace HERO_Arcade_Drive_Example1
             float leftThrot = y + twist;
             float rightThrot = (y - twist) * 1.15f; // Multiply to match left side.
 
-            left.Set(ControlMode.PercentOutput, leftThrot);
+            //left.Set(ControlMode.PercentOutput, leftThrot);
             right.Set(ControlMode.PercentOutput, -rightThrot);
 
             _gamepad.GetAllValues(ref v).ToString();
@@ -293,6 +289,18 @@ namespace HERO_Arcade_Drive_Example1
                 //}
             //}
 
+        }
+
+        static void OneMotor()
+        {
+            if (null == _gamepad)
+                _gamepad = new GameController(UsbHostDevice.GetInstance());
+
+            float y = _gamepad.GetAxis(1);
+
+            right.Set(ControlMode.PercentOutput, y);
+
+            _gamepad.GetAllValues(ref v).ToString();
         }
     }
 }
