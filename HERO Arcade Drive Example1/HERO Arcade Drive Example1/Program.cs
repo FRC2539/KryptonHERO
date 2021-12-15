@@ -103,8 +103,7 @@ namespace HERO_Arcade_Drive_Example1
             while (true)
             {
                 // Drive the robot with the gamepad
-                OneMotorForward(1);
-                OneMotorBackward(2);
+                OneMotor(1);
 
                 // Feed watchdog to keep the Talons enabled
                 CTRE.Phoenix.Watchdog.Feed();
@@ -306,27 +305,19 @@ namespace HERO_Arcade_Drive_Example1
 
             _gamepad.GetAllValues(ref v).ToString();
         }*/
-
-        static void OneMotorForward(uint id)
+     
+        static void OneMotor(uint id)
         {
             if (null == _gamepad)
                 _gamepad = new GameController(UsbHostDevice.GetInstance());
             //Debug.Print(_gamepad.GetButton(id).ToString());
+ 
 
-            if (_gamepad.GetButton(id))
-            {
-                motorDirection = 1;
-                right.Set(ControlMode.PercentOutput, 1);
-                Debug.Print("pressed");
-            }
-            else if (motorDirection == 1)
-            {
-                right.Set(ControlMode.PercentOutput, 0);
-                Debug.Print("released forward");
-            }
+            right.Set((ControlMode.PercentOutput), 4*System.Math.Pow(_gamepad.GetAxis(id),2)); //This should not be commented out
+            Debug.Print("Throttle: " + _gamepad.GetAxis(id));
         }
 
-        static void OneMotorBackward(uint id)
+        /*static void OneMotorBackward(uint id)
         {
             if (null == _gamepad)
                 _gamepad = new GameController(UsbHostDevice.GetInstance());
@@ -343,7 +334,7 @@ namespace HERO_Arcade_Drive_Example1
                 right.Set(ControlMode.PercentOutput, 0);
                 Debug.Print("released backward");
             }
-        }
+        }*/
     }
 }
 
