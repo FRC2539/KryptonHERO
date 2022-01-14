@@ -133,7 +133,21 @@ namespace HERO_Arcade_Drive_Example1
                 {
                     // Drive the robot with the gamepad
                     OneMotor(0,2);
+
+                    if (_gamepad.GetButton(2))
+                    {
+                        LeftShoot();
+                        Debug.Print("Left");
+                    }
+
+                    if (_gamepad.GetButton(3))
+                    {
+                        RightShoot();
+                        Debug.Print("Right");
+                    }
+
                 }
+
 
                 // Feed watchdog to keep the Talons enabled
                 CTRE.Phoenix.Watchdog.Feed();
@@ -289,6 +303,17 @@ namespace HERO_Arcade_Drive_Example1
             //Debug.Print("Motor Left: " + _gamepad.GetAxis(leftAxis) + " Motor Right: " + _gamepad.GetAxis(rightAxis));
         }
 
+        static void RightShoot()
+        {
+            right.Set(ControlMode.PercentOutput, 80); //This should not be commented out
+            left.Set(ControlMode.PercentOutput, 50); //This should not be commented out
+        }
+
+        static void LeftShoot()
+        {
+            right.Set(ControlMode.PercentOutput, 50); //This should not be commented out
+            left.Set(ControlMode.PercentOutput, 80); //This should not be commented out
+        }
         /*static void OneMotorBackward(uint id)
         {
             if (null == _gamepad)
