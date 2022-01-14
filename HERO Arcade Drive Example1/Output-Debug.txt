@@ -1,0 +1,40 @@
+﻿Found debugger!
+
+Create TS.
+
+ Loading start at 8131c30, end 81446b8
+
+   Assembly: mscorlib (4.4.0.0)     Assembly: Microsoft.SPOT.Native (4.4.0.0)     Assembly: Microsoft.SPOT.Hardware (4.4.0.0)  
+   Assembly: Microsoft.SPOT.Graphics (4.4.0.0)     Assembly: Microsoft.SPOT.Hardware.SerialPort (4.4.0.0)  
+   Assembly: Microsoft.SPOT.Hardware.Usb (4.4.0.0)     Assembly: Microsoft.SPOT.Hardware.PWM (4.4.0.0)  
+   Assembly: ctre_netmf_native (1.10.0.0)  Loading Deployment Assemblies.
+
+Attaching deployed file.
+
+   Assembly: System (4.4.0.0)  Attaching deployed file.
+
+   Assembly: CTRE.Phoenix.LowLevel (5.3.1.0)  Attaching deployed file.
+
+   Assembly: CTRE (5.3.1.0)  Attaching deployed file.
+
+   Assembly: Microsoft.SPOT.Net (4.4.0.0)  Attaching deployed file.
+
+   Assembly: HERO Arcade Drive Example1 (1.0.0.0)  Resolving.
+
+The debugging target runtime is loading the application assemblies and starting execution.
+Ready.
+
+'Microsoft.SPOT.Debugger.CorDebug.16.dll' (Managed): Loaded 'C:\Program Files (x86)\Microsoft .NET Micro Framework\v4.4\Assemblies\le\Microsoft.SPOT.Native.dll', Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Microsoft.SPOT.Debugger.CorDebug.16.dll' (Managed): Loaded 'C:\Program Files (x86)\Microsoft .NET Micro Framework\v4.4\Assemblies\le\Microsoft.SPOT.Hardware.dll', Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Microsoft.SPOT.Debugger.CorDebug.16.dll' (Managed): Loaded 'C:\Program Files (x86)\Microsoft .NET Micro Framework\v4.4\Assemblies\le\Microsoft.SPOT.Graphics.dll', Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Microsoft.SPOT.Debugger.CorDebug.16.dll' (Managed): Loaded 'C:\Program Files (x86)\Microsoft .NET Micro Framework\v4.4\Assemblies\le\Microsoft.SPOT.Hardware.SerialPort.dll', Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Microsoft.SPOT.Debugger.CorDebug.16.dll' (Managed): Loaded 'C:\Program Files (x86)\Microsoft .NET Micro Framework\v4.4\Assemblies\le\Microsoft.SPOT.Hardware.Usb.dll', Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Microsoft.SPOT.Debugger.CorDebug.16.dll' (Managed): Loaded 'C:\Program Files (x86)\Microsoft .NET Micro Framework\v4.4\Assemblies\le\Microsoft.SPOT.Hardware.PWM.dll', Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Microsoft.SPOT.Debugger.CorDebug.16.dll' (Managed): Loaded 'C:\Users\Public\Documents\Cross The Road Electronics\HERO\HERO SDK\Assemblies\v4.4\le\..\ctre_netmf_native.dll', Symbols loaded.
+'Microsoft.SPOT.Debugger.CorDebug.16.dll' (Managed): Loaded 'C:\Program Files (x86)\Microsoft .NET Micro Framework\v4.4\Assemblies\le\Microsoft.SPOT.Net.dll', Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Microsoft.SPOT.Debugger.CorDebug.16.dll' (Managed): Loaded 'C:\Program Files (x86)\Microsoft .NET Micro Framework\v4.4\Assemblies\le\System.dll', Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Microsoft.SPOT.Debugger.CorDebug.16.dll' (Managed): Loaded 'C:\Users\Public\Documents\Cross The Road Electronics\HERO\HERO SDK\Assemblies\v4.4\le\..\CTRE.Phoenix.LowLevel.dll', Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Microsoft.SPOT.Debugger.CorDebug.16.dll' (Managed): Loaded 'C:\Users\Public\Documents\Cross The Road Electronics\HERO\HERO SDK\Assemblies\v4.4\le\CTRE.dll', Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Microsoft.SPOT.Debugger.CorDebug.16.dll' (Managed): Loaded 'C:\Users\Krypton Cougars\source\repos\KryptonHERO\HERO Arcade Drive Example1\HERO Arcade Drive Example1\bin\Debug\le\HERO Arcade Drive Example1.exe', Symbols loaded.
+The thread '<No Name>' (0x2) has exited with code 0 (0x0).
+The program '[14] Micro Framework application: Managed' has exited with code 0 (0x0).

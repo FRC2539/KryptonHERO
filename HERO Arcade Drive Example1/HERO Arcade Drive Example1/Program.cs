@@ -2,11 +2,9 @@
 using CTRE.Phoenix.Controller;
 using CTRE.Phoenix.MotorControl;
 using CTRE.Phoenix.MotorControl.CAN;
-using CTRE.HERO;
 using Microsoft.SPOT;
 using Microsoft.SPOT.Hardware;
 using System;
-using System.Text;
 using System.Threading;
 
 
@@ -17,8 +15,8 @@ namespace HERO_Arcade_Drive_Example1
 
         static CTRE.Phoenix.Controller.GameController controller = null;
         uint buttonID;
-        private bool buttonPressed = false;
-        private bool ran = false;
+        //private bool buttonPressed = false;
+        //private bool ran = false;
         dummy toDo = null;
         dummy onStop = null;
 
@@ -56,26 +54,53 @@ namespace HERO_Arcade_Drive_Example1
 
     }
 
+    /* Controller Button Map
+     * 1 = X
+     * 2 = A
+     * 3 = B
+     * 4 = Y
+     * 5 = LB
+     * 6 = RB
+     * 7 = LT
+     * 8 = RT
+     * 9 = Back
+     * 10 = Start
+     * 11 = LJ
+     * 12 = RJ
+     */
+
+    /*
+     * Left Stick:
+     *  0 = 
+    */
+
     public class Program
     {
         // Create the drive train motors
         static TalonSRX right = new TalonSRX(1);
-        //static TalonSRX left = new TalonSRX(9);
+        static TalonSRX left = new TalonSRX(2);
 
-        //static TalonSRX elevationMotor = new TalonSRX(11);
-        
+        static OutputPort blinkyLight = new OutputPort(CTRE.HERO.IO.Port3.Pin9, true);
+
+        //static TalonSRX elevationMotor = new TalonSRX(11); 
+
         // Create the index motors (moving balls to the shooter)
         //static TalonSRX index1 = new TalonSRX(3);
         //static TalonSRX index2 = new TalonSRX(7);
 
         //static TalonSRX shooter = new TalonSRX(8);
-
         static GameControllerValues v = new GameControllerValues();
 
         //static bool isPressed = false;
         static bool lightsIsPressed = false;
         //static bool blinkLightsIsPressed = false;
         static bool lightsOn = false;
+        static bool isEnabled = false;
+
+        static int count;
+
+        static bool buttonSpamPrevention = false; //trying to fix start button
+
         //static bool needToRun = false;
         //static int counter = 0;
         //static int motorDirection = 0;
@@ -86,21 +111,29 @@ namespace HERO_Arcade_Drive_Example1
 
         public static void Main()
         {
-
             //isPressed = false;
             lightsIsPressed = false;
             //blinkLightsIsPressed = false;
             lightsOn = true;
 
+            count = 0;
+
             // Configure the drivetrain motors
             right.SetNeutralMode(NeutralMode.Brake);
             //elevationMotor.ConfigOpenloopRamp(0.25f);
 
+            blinkyLight.Write(false);
+
             // Run the robot loop
             while (true)
             {
-                // Drive the robot with the gamepad
-                OneMotor(1);
+                //Enabled();
+
+                if (Enabled() == true)
+                {
+                    // Drive the robot with the gamepad
+                    OneMotor(0,2);
+                }
 
                 // Feed watchdog to keep the Talons enabled
                 CTRE.Phoenix.Watchdog.Feed();
@@ -108,6 +141,7 @@ namespace HERO_Arcade_Drive_Example1
 
                 // Set the loop speed to be every 20 ms
                 Thread.Sleep(20);
+                
 
             }
         }
@@ -115,6 +149,58 @@ namespace HERO_Arcade_Drive_Example1
          * If value is within 10% of center, clear it.
          * @param value [out] floating point value to deadband.
          */
+
+        static bool Enabled()
+        {
+
+            if (null == _gamepad)
+                _gamepad = new GameController(UsbHostDevice.GetInstance());
+
+            if (count == 20 && isEnabled)
+            {
+                blinkyLight.Write(lightsOn); // Blink off
+                lightsOn = !lightsOn;
+                count = 0;
+            }
+            else if(isEnabled)
+            {
+                count++;
+            }
+
+           
+
+            if (_gamepad.GetButton(10))
+            {
+                if (buttonSpamPrevention == true)
+                {
+                    return true;
+                }
+
+                buttonSpamPrevention = true;
+
+                if (isEnabled == true)
+                {
+                    isEnabled = !isEnabled;
+                   // Debug.Print("Disabled");
+                    blinkyLight.Write(false); // Just on
+                    count = 0;
+                    return false;
+                }
+                else
+                {
+                    isEnabled = !isEnabled;
+                   // Debug.Print("Enabled");
+
+                    return true;
+                }
+            } 
+            else
+            {
+                //Debug.Print("ButtonReleased");
+                buttonSpamPrevention = false;
+                return isEnabled;
+            }
+        }
 
         static void BlinkLights(uint id)
         {
@@ -164,6 +250,7 @@ namespace HERO_Arcade_Drive_Example1
             float twist = _gamepad.GetAxis(2);
 
             Deadband(ref y);
+
             Deadband(ref twist);
 
             float leftThrot = y + twist;
@@ -190,15 +277,16 @@ namespace HERO_Arcade_Drive_Example1
             _gamepad.GetAllValues(ref v).ToString();
         }*/
      
-        static void OneMotor(uint id)
+        static void OneMotor(uint leftAxis, uint rightAxis)
         {
             if (null == _gamepad)
                 _gamepad = new GameController(UsbHostDevice.GetInstance());
             //Debug.Print(_gamepad.GetButton(id).ToString());
  
-
-            right.Set((ControlMode.PercentOutput), 4*System.Math.Pow(_gamepad.GetAxis(id),2)); //This should not be commented out
-            Debug.Print("Throttle: " + _gamepad.GetAxis(id));
+            //two for one
+            right.Set(ControlMode.PercentOutput, _gamepad.GetAxis(rightAxis)); //This should not be commented out
+            left.Set(ControlMode.PercentOutput, _gamepad.GetAxis(leftAxis)); //This should not be commented out
+            //Debug.Print("Motor Left: " + _gamepad.GetAxis(leftAxis) + " Motor Right: " + _gamepad.GetAxis(rightAxis));
         }
 
         /*static void OneMotorBackward(uint id)
