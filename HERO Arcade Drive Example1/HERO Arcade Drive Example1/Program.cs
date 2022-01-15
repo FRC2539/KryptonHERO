@@ -99,6 +99,8 @@ namespace HERO_Arcade_Drive_Example1
 
         static int count;
 
+        static double speedControl = 1;
+
         static bool buttonSpamPrevention = false; //trying to fix start button
 
         //static bool needToRun = false;
@@ -137,14 +139,35 @@ namespace HERO_Arcade_Drive_Example1
                     if (_gamepad.GetButton(2))
                     {
                         LeftShoot();
-                        Debug.Print("Left");
+                        //Debug.Print("Left");
                     }
 
                     if (_gamepad.GetButton(3))
                     {
                         RightShoot();
-                        Debug.Print("Right");
+                        //Debug.Print("Right");
                     }
+
+                    if (_gamepad.GetButton(6))
+                    {
+                        speedControl -= .01;
+                        //Debug.Print("Reduce Speed Control: " + speedControl.ToString());
+                    }
+
+                    if (_gamepad.GetButton(8))
+                    {
+                        
+                        speedControl += .01;
+                        //Debug.Print("Increase Speed Control: " + speedControl.ToString());
+                    }
+
+                    if (_gamepad.GetButton(9))
+                    {
+
+                        speedControl = 1;
+                        //Debug.Print("Reset Default Speed Control: " + speedControl.ToString());
+                    }
+
 
                 }
 
@@ -154,7 +177,18 @@ namespace HERO_Arcade_Drive_Example1
                 CTRE.Phoenix.Watchdog.Feed();
 
                 // Set the loop speed to be every 20 ms
-                Thread.Sleep(20);
+                double defSpeed = 20 / speedControl;
+                int setSpeed = (int)System.Math.Round(defSpeed);
+                //Debug.Print(setSpeed.ToString());
+                if(speedControl < 0)
+                {
+                    speedControl = 0.1;
+                }
+                else if (speedControl > 1)
+                {
+                    speedControl = 1;
+                }
+                Thread.Sleep(setSpeed);
                 
 
             }
@@ -298,21 +332,21 @@ namespace HERO_Arcade_Drive_Example1
             //Debug.Print(_gamepad.GetButton(id).ToString());
  
             //two for one
-            right.Set(ControlMode.PercentOutput, _gamepad.GetAxis(rightAxis)); //This should not be commented out
-            left.Set(ControlMode.PercentOutput, _gamepad.GetAxis(leftAxis)); //This should not be commented out
-            //Debug.Print("Motor Left: " + _gamepad.GetAxis(leftAxis) + " Motor Right: " + _gamepad.GetAxis(rightAxis));
+            right.Set(ControlMode.PercentOutput, _gamepad.GetAxis(rightAxis)*speedControl); //This should not be commented out
+            left.Set(ControlMode.PercentOutput, _gamepad.GetAxis(leftAxis) * speedControl); //This should not be commented out
+            Debug.Print("Motor Left: " + _gamepad.GetAxis(leftAxis) *speedControl + " Motor Right: " + _gamepad.GetAxis(rightAxis)*speedControl);
         }
 
         static void RightShoot()
         {
-            right.Set(ControlMode.PercentOutput, 80); //This should not be commented out
-            left.Set(ControlMode.PercentOutput, 50); //This should not be commented out
+            right.Set(ControlMode.PercentOutput, 80 * speedControl); //This should not be commented out
+            left.Set(ControlMode.PercentOutput, 50 * speedControl); //This should not be commented out
         }
 
         static void LeftShoot()
         {
-            right.Set(ControlMode.PercentOutput, 50); //This should not be commented out
-            left.Set(ControlMode.PercentOutput, 80); //This should not be commented out
+            right.Set(ControlMode.PercentOutput, 50 * speedControl); //This should not be commented out
+            left.Set(ControlMode.PercentOutput, 80 * speedControl); //This should not be commented out
         }
         /*static void OneMotorBackward(uint id)
         {
