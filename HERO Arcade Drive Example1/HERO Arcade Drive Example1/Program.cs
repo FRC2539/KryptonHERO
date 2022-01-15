@@ -99,7 +99,10 @@ namespace HERO_Arcade_Drive_Example1
 
         static int count;
 
-        static double speedControl = 1;
+        static double speedControl = .75;
+
+        static bool alert = false;
+        static int alertCount = 0;
 
         static bool buttonSpamPrevention = false; //trying to fix start button
 
@@ -150,21 +153,22 @@ namespace HERO_Arcade_Drive_Example1
 
                     if (_gamepad.GetButton(6))
                     {
-                        speedControl -= .01;
-                        //Debug.Print("Reduce Speed Control: " + speedControl.ToString());
+                        speedControl += .01;
+                        //Debug.Print("Increase Speed Control: " + speedControl.ToString());
                     }
 
                     if (_gamepad.GetButton(8))
                     {
                         
-                        speedControl += .01;
-                        //Debug.Print("Increase Speed Control: " + speedControl.ToString());
+                        speedControl -= .01;
+                        //Debug.Print("Reduce Speed Control: " + speedControl.ToString());
                     }
 
                     if (_gamepad.GetButton(9))
                     {
 
-                        speedControl = 1;
+                        speedControl = .75;
+                        alert = true;
                         //Debug.Print("Reset Default Speed Control: " + speedControl.ToString());
                     }
 
@@ -188,7 +192,20 @@ namespace HERO_Arcade_Drive_Example1
                 {
                     speedControl = 1;
                 }
-                Thread.Sleep(setSpeed);
+
+                if (alert == true && alertCount < 100)
+                {
+                    //Debug.Print("Alert");
+                    Thread.Sleep(1);
+                    alertCount += 1;
+                } else
+                {
+                    //Debug.Print("Alert Off");
+                    Thread.Sleep(setSpeed);
+                    alert = false;
+                    alertCount = 0;
+                }
+                
                 
 
             }
@@ -334,7 +351,7 @@ namespace HERO_Arcade_Drive_Example1
             //two for one
             right.Set(ControlMode.PercentOutput, _gamepad.GetAxis(rightAxis)*speedControl); //This should not be commented out
             left.Set(ControlMode.PercentOutput, _gamepad.GetAxis(leftAxis) * speedControl); //This should not be commented out
-            Debug.Print("Motor Left: " + _gamepad.GetAxis(leftAxis) *speedControl + " Motor Right: " + _gamepad.GetAxis(rightAxis)*speedControl);
+            //Debug.Print("Motor Left: " + _gamepad.GetAxis(leftAxis) *speedControl + " Motor Right: " + _gamepad.GetAxis(rightAxis)*speedControl);
         }
 
         static void RightShoot()
